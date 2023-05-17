@@ -7,7 +7,7 @@ import WeatherDetail from './screens/WeatherDetail'
 
 export type RootStackParamList = {
   Home: undefined;
-  WeatherDetail: undefined;
+  WeatherDetail: { cityName: string };
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
