@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import {useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import {API_TOKEN} from "react-native-dotenv"
 
 import TimeCalc from '../components/TimeCalc'
@@ -24,22 +24,23 @@ export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home
 
 const WeatherDetail = (props: Props) => {
     const navigation = useNavigation<NavigationProp>()
-    const route = useRoute()
-    const cityName = route.params?.cityName
+    const cityName = props.route.params?.cityName
     const [localTime, setLocalTime] = useState("")
 
-    const [weatherData, setWeatherData] = useState([{}])
-    const [icon, setIcon] = useState("")
+    const [weatherData, setWeatherData] = useState([])
+
 
     const getWeather = async () => {
-        const result = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_TOKEN}&units=imperial`)
+        await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_TOKEN}&units=imperial`)
             .then((data) => data.json())
-            .catch((error) => {
+            .then(data => setWeatherData(data))
+            .catch(error => {
                 console.error(error);
-                // ADD THIS THROW error
-                // throw error;
+
             });
-        setWeatherData(result)
+        // setWeatherData(result)
+        console.log("1" + weatherData.weather)
+        console.log("2" + weatherData.weather[0])
         setIcon(weatherData.weather[0].icon)
     }
 
@@ -59,12 +60,14 @@ const WeatherDetail = (props: Props) => {
     return (
         <SafeAreaView className="">
             <ImageBackground className="w-screen h-screen z-0" source={require('../assets/images/clear-night.jpg')}>
+
+                {weatherData ? (
                 <View className="mx-auto my-6 p-10 bg-white/40 rounded">
                     <Text className="text-xl text-center">{weatherData.name ? weatherData.name : null}'s Current Weather</Text>
                     <Text className="text-center">{localTime}</Text>
                     <View className="flex-row justify-evenly p-3 h-16">
                         <Image className="w-14" source={{
-                            uri: `http://openweathermap.org/img/wn/${icon}@2x.png`
+                            uri: `http://openweathermap.org/img/wn/${icon}@2x.png.png`
                             }} 
                         />
                         <Text className="my-auto">{weatherData.main ? weatherData.main.temp_max : null}°F</Text>
@@ -83,12 +86,14 @@ const WeatherDetail = (props: Props) => {
                     </View>
                     
 
-                    {/* <TimeCalc weatherData={weatherData} /> */}
+                    <TimeCalc weatherData={weatherData} />
 
                     <TouchableOpacity className="bg-purple-500 p-3 w-28 mx-auto mt-4" onPress={() => navigation.navigate("Home")}>
                         <Text className="text-center text-white">Back Home</Text>
                     </TouchableOpacity>
                 </View>
+
+                       ): null }           
             </ImageBackground>
         </SafeAreaView>
     )
