@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import {API_TOKEN} from "@env"
+import {API_TOKEN} from "react-native-dotenv"
 import {useNavigation} from '@react-navigation/native'
 
 type Props = {};
@@ -24,7 +24,9 @@ const Home = (props: Props) => {
     const handleSubmit = async () => {
         const result = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Detroit&appid=${API_TOKEN}&units=imperial`).then((data) => data.json())
         setWeatherData(result)
-        navigation.navigate("WeatherDetail")
+        // navigation.navigate("WeatherDetail", {
+        //     weatherData: weatherData
+        // })
     }
     
 
@@ -34,6 +36,8 @@ const Home = (props: Props) => {
                 <Text className="text-white text-xl mx-10 text-center">Check out the weather from around the world!</Text>
                 <TextInput className="bg-white py-1 my-5 w-60 mx-auto"></TextInput>
                 <Pressable className="text-center flex-end" onPress={handleSubmit}><Text>Get Weather</Text></Pressable>
+
+                <Text>{weatherData ? weatherData.main.temp_max : null}</Text>
             </View>
         </SafeAreaView>
     )
