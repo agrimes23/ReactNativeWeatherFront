@@ -118,7 +118,7 @@ const WeatherDetail = (props: Props) => {
                     </View>
 
                     <TouchableOpacity className="bg-purple-500 p-3 w-28 mx-auto mt-4" onPress={() => navigation.navigate("Search")}>
-                        <Text className="text-center text-white">Back Home</Text>
+                        <Text className="text-center text-white">Back to Search</Text>
                     </TouchableOpacity>
                 </View>
         

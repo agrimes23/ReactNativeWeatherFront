@@ -17,41 +17,21 @@ export type RootStackParamList = {
     timezoneData: Number,
     sysData: Object
   };
+
 }
 
-const Tab = createBottomTabNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
 
 function App(): JSX.Element {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Search"
-        screenOptions={(route: any) => ({
-          tabBarIcon: ({focused, color, size}) => {
-            
-            let iconName;
-            let rn = route.name;
-
-            if (rn === "Home") {
-              iconName = focused ? 'home' :'home-outline'
-            } else if (rn === "Dashboard") {
-              iconName = focused ? 'list' : 'list-outline'
-            }
-
-            return <Text >@</Text>
-
-          }
-        })}
-        >
-
-        <Tab.Screen name="Search" component={Search} options={{headerShown: false}} />
-        <Tab.Screen name="Dashboard" component={Dashboard} options={{headerShown: false}} />
-
-      </Tab.Navigator>
+      
       <Stack.Navigator>
+        <Stack.Screen name="Search" component={Search} options={{headerShown: false}} />
         <Stack.Screen name="WeatherDetail" component={WeatherDetail} options={{headerShown: false}} />
+        <Stack.Screen name="Dashboard" component={Dashboard} options={{headerShown: false}} />
       </Stack.Navigator>
 
     </NavigationContainer>

@@ -21,8 +21,6 @@ type Props = {};
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Search">;
 
-
-
 const Search = (props: Props) => {
 
     const [city, setCity] = useState("")
