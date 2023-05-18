@@ -14,8 +14,6 @@ import { RootStackParamList } from '../App';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {API_TOKEN} from "react-native-dotenv"
 
-import TimeCalc from '../components/TimeCalc'
-
 type Props = {
 
 };
@@ -67,35 +65,30 @@ const WeatherDetail = (props: Props) => {
                 {weatherData ? (
                 <View className="mx-auto my-6 p-10 bg-white/40 rounded">
                     <Text className="text-4xl text-left">{weatherData.name ? weatherData.name : null}</Text>
-                    <Text className="text-left">{localTime}</Text>
+                    <Text className="text-left text-lg">{localTime}</Text>
                     <View className="flex-row justify-evenly p-3 h-16">
-                        <Image className="w-14" source={{
+                        <Image className="w-16" source={{
                             uri: `http://openweathermap.org/img/wn/${icon}@2x.png`
                             }} 
                         />
-                        <Text className="my-auto">{weatherData.main ? weatherData.main.temp_max : null}°F</Text>
+                        <Text className="my-auto text-xl">{weatherData.main ? weatherData.main.temp_max : null}°F</Text>
                     </View>
                     <View className="flex-row ">
-                        <Text className="mr-2">Min Temp: </Text>
-                        <Text>{weatherData.main ? weatherData.main.temp_min : null}°F</Text>
+                        <Text className="mr-2 text-base">
+                            Min Temp:   {weatherData.main ? weatherData.main.temp_min : null}°F
+                        </Text>
                     </View>
                     <View className="flex-row ">
-                        <Text className="mr-2">Humidity: </Text>
-                        <Text>{weatherData.main ? weatherData.main.humidity : null}</Text>
+                        <Text className="mr-2 text-base">
+                            Humidity:   {weatherData.main ? weatherData.main.humidity : null}%
+                        </Text>
+                    </View>
+
+                    <View className="flex-row ">
+                        <Text className="mr-2 text-base">Sunrise Time:   {sunriseTime}</Text>
                     </View>
                     <View className="flex-row ">
-                        <Text className="mr-2">Visibility: </Text>
-                        <Text>{weatherData.visibility ? weatherData.visibility : null} km</Text>
-                    </View>
-                    
-                    <Text></Text>
-                    <View className="flex-row ">
-                        <Text className="mr-2">Sunrise Time: </Text>
-                        <Text>{sunriseTime}</Text>
-                    </View>
-                    <View className="flex-row ">
-                        <Text className="mr-2">Sunset Time: </Text>
-                        <Text>{sunsetTime}</Text>
+                        <Text className="mr-2 text-base">Sunset Time:   {sunsetTime}</Text>
                     </View>
 
                     <TouchableOpacity className="bg-purple-500 p-3 w-28 mx-auto mt-4" onPress={() => navigation.navigate("Home")}>
