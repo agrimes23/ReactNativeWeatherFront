@@ -5,12 +5,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
-import Home from './screens/Home'
+import Search from './screens/Search'
 import WeatherDetail from './screens/WeatherDetail'
 import Dashboard from './screens/Dashboard'
 
 export type RootStackParamList = {
-  Home: undefined;
+  Search: undefined;
   WeatherDetail: { cityName: string };
   Dashboard: undefined;
   TimeCalc: {
@@ -20,13 +20,14 @@ export type RootStackParamList = {
 }
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): JSX.Element {
 
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Search"
         screenOptions={(route: any) => ({
           tabBarIcon: ({focused, color, size}) => {
             
@@ -45,11 +46,14 @@ function App(): JSX.Element {
         })}
         >
 
-        <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
-        <Tab.Screen name="WeatherDetail" component={WeatherDetail} options={{headerShown: false}} />
+        <Tab.Screen name="Search" component={Search} options={{headerShown: false}} />
         <Tab.Screen name="Dashboard" component={Dashboard} options={{headerShown: false}} />
 
       </Tab.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen name="WeatherDetail" component={WeatherDetail} options={{headerShown: false}} />
+      </Stack.Navigator>
+
     </NavigationContainer>
   );
 }

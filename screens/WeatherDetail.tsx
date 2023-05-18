@@ -19,7 +19,7 @@ type Props = {
 
 };
 
-export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
+export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Search">;
 
 const WeatherDetail = (props: Props) => {
     const navigation = useNavigation<NavigationProp>()
@@ -117,7 +117,7 @@ const WeatherDetail = (props: Props) => {
                         <Text className="mr-2 text-base">Sunset Time:   {sunsetTime}</Text>
                     </View>
 
-                    <TouchableOpacity className="bg-purple-500 p-3 w-28 mx-auto mt-4" onPress={() => navigation.navigate("Home")}>
+                    <TouchableOpacity className="bg-purple-500 p-3 w-28 mx-auto mt-4" onPress={() => navigation.navigate("Search")}>
                         <Text className="text-center text-white">Back Home</Text>
                     </TouchableOpacity>
                 </View>

@@ -16,13 +16,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {useNavigation, useRoute} from '@react-navigation/native'
 
+
 type Props = {};
 
-export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
+export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Search">;
 
 
 
-const Home = (props: Props) => {
+const Search = (props: Props) => {
 
     const [city, setCity] = useState("")
 
@@ -60,4 +61,4 @@ const Home = (props: Props) => {
 
 }
 
-export default Home;
+export default Search;

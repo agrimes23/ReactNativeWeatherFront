@@ -20,11 +20,11 @@ const image = {sours: ''}
 
 type Props = {};
 
-export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
+export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Search">;
 
 
 
-const Home = (props: Props) => {
+const Dashboard = (props: Props) => {
 
     const [city, setCity] = useState("")
 
@@ -50,4 +50,4 @@ const Home = (props: Props) => {
 
 }
 
-export default Home;
+export default Dashboard;
