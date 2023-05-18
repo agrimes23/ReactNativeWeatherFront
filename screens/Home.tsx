@@ -30,7 +30,7 @@ const Home = (props: Props) => {
 
 
     const handleSubmit = () => {
-        console.log(city)
+        // console.log(city)
 
         navigation.navigate("WeatherDetail", {cityName: city})
     }

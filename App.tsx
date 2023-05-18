@@ -8,7 +8,10 @@ import WeatherDetail from './screens/WeatherDetail'
 export type RootStackParamList = {
   Home: undefined;
   WeatherDetail: { cityName: string };
-  TimeCalc: {weatherData: Array<Object>};
+  TimeCalc: {
+    timezoneData: Number,
+    sysData: Object
+  };
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
