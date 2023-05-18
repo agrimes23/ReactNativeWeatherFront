@@ -49,6 +49,7 @@ const WeatherDetail = (props: Props) => {
         const localDate = new Date( time * 1000  + ((zone) *1000)).toUTCString().split("GMT")
         const localSunrise = new Date(( (sunrise) * 1000  + ((zone) * 1000 )) ).toUTCString()
         const localSunset = new Date( (sunset) * 1000  + ((zone) *1000)).toUTCString()
+        
         setLocalTime(localDate[0])
         setSunriseTime(`${localSunrise.split(" ")[4]} ${ + localSunrise.split(" ")[4].split(":")[0] > 12 ? "PM" : "AM" }`)
         setSunsetTime(`${localSunset.split(" ")[4]} ${ + localSunset.split(" ")[4].split(":")[0] > 12 ? "PM" : "AM" }`)
