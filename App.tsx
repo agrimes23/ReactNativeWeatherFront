@@ -23,11 +23,6 @@ const Tab = createBottomTabNavigator<RootStackParamList>();
 
 function App(): JSX.Element {
 
-  interface aaa {
-    iconName: any,
-    name: any
-  }
-
   return (
     <NavigationContainer>
       <Tab.Navigator
