@@ -23,11 +23,11 @@ export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home
 
 const WeatherDetail = (props: Props) => {
     const navigation = useNavigation<NavigationProp>()
-    const route = useRoute()
+    const route: any = useRoute()
     const cityName = route.params?.cityName
 
-    const [weatherData, setWeatherData] = useState([])
-    const [localTime, setLocalTime] = useState("")
+    const [weatherData, setWeatherData] = useState<any>([])
+    const [localTime, setLocalTime] = useState<string>("")
     const [sunriseTime, setSunriseTime] = useState("")
     const [sunsetTime, setSunsetTime] = useState("")
     const [icon, setIcon] = useState("")

@@ -16,6 +16,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {useNavigation, useRoute} from '@react-navigation/native'
 
+const image = {sours: ''}
+
 type Props = {};
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
@@ -39,19 +41,7 @@ const Home = (props: Props) => {
         <ImageBackground className="w-screen h-full z-0" source={require('../assets/images/blueskybg.jpg')}>
             <SafeAreaView className="bg-gray">
                 <ScrollView>
-                    <KeyboardAvoidingView behavior="padding" className="flex-1">
-                        <View className="bg-white/60 text-center mx-auto mt-32 p-5 rounded">
-                            <Text className="text-black text-2xl mx-5 text-center">Check out the weather from around the world!</Text>
-                            <TextInput onChangeText={newText => setCity(newText)} defaultValue={city} className="bg-white py-1 my-12 w-60 mx-auto text-lg"></TextInput>
-
-                            <View className="items-end">
-                                <TouchableOpacity className="text-center flex-end bg-green-500 p-3 w-28 rounded" onPress={handleSubmit}>
-                                    <Text className="text-center text-white font-bold text-sm">Get Weather</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                        </View>
-                    </KeyboardAvoidingView>
+                        <Text>Well Hello this is the dashboard screen :O </Text>
                 </ScrollView>                
             </SafeAreaView>
         </ImageBackground>
