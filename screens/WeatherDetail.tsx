@@ -73,8 +73,9 @@ const WeatherDetail = (props: Props) => {
     }
 
     useEffect(() => {
+        getWeather()
         getDegrees()
-        getWeather()       
+              
     }, [isEnabled])
 
     return (

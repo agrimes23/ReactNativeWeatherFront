@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Search from './screens/Search'
 import WeatherDetail from './screens/WeatherDetail'
 import Dashboard from './screens/Dashboard'
+import BottomTab from './screens/BottomTab'
 
 export type RootStackParamList = {
   Search: undefined;
@@ -17,21 +18,22 @@ export type RootStackParamList = {
     timezoneData: Number,
     sysData: Object
   };
-
+  BottomTab: any;
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
 
 function App(): JSX.Element {
 
   return (
     <NavigationContainer>
       
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName={Search}>
+        
         <Stack.Screen name="Search" component={Search} options={{headerShown: false}} />
         <Stack.Screen name="WeatherDetail" component={WeatherDetail} options={{headerShown: false}} />
         <Stack.Screen name="Dashboard" component={Dashboard} options={{headerShown: false}} />
+        <Stack.Screen name="BottomTab" component={BottomTab} />
       </Stack.Navigator>
 
     </NavigationContainer>
