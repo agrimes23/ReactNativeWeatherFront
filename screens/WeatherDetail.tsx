@@ -118,7 +118,7 @@ const WeatherDetail = (props: Props) => {
                         <Text className="mr-2 text-base">Sunset Time:   {sunsetTime}</Text>
                     </View>
 
-                    <TouchableOpacity className="bg-purple-500 p-3 w-28 mx-auto mt-4" onPress={() => navigation.navigate("Search")}>
+                    <TouchableOpacity className="bg-purple-500 p-3 w-28 mx-auto mt-4" onPress={() => navigation.navigate("SearchScreen")}>
                         <Text className="text-center text-white">Back to Search</Text>
                     </TouchableOpacity>
                 </View>
