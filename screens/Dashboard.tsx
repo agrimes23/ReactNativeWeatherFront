@@ -41,7 +41,9 @@ const Dashboard = (props: Props) => {
         <ImageBackground className="w-screen h-full z-0" source={require('../assets/images/blueskybg.jpg')}>
             <SafeAreaView className="bg-gray">
                 <ScrollView>
-                        <Text>Well Hello this is the dashboard screen :O </Text>
+                    <View className="m-auto mt-10">
+                        <Text className="text-2xl">Dashboard! (Coming Soon)</Text>
+                    </View>
                 </ScrollView>                
             </SafeAreaView>
         </ImageBackground>
