@@ -19,15 +19,15 @@ type Props = {
 
 };
 
-export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
+export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Search">;
 
 const WeatherDetail = (props: Props) => {
     const navigation = useNavigation<NavigationProp>()
-    const route = useRoute()
+    const route: any = useRoute()
     const cityName = route.params?.cityName
 
-    const [weatherData, setWeatherData] = useState([])
-    const [localTime, setLocalTime] = useState("")
+    const [weatherData, setWeatherData] = useState<any>([])
+    const [localTime, setLocalTime] = useState<string>("")
     const [sunriseTime, setSunriseTime] = useState("")
     const [sunsetTime, setSunsetTime] = useState("")
     const [icon, setIcon] = useState("")
@@ -73,8 +73,9 @@ const WeatherDetail = (props: Props) => {
     }
 
     useEffect(() => {
+        getWeather()
         getDegrees()
-        getWeather()       
+              
     }, [isEnabled])
 
     return (
@@ -117,8 +118,8 @@ const WeatherDetail = (props: Props) => {
                         <Text className="mr-2 text-base">Sunset Time:   {sunsetTime}</Text>
                     </View>
 
-                    <TouchableOpacity className="bg-purple-500 p-3 w-28 mx-auto mt-4" onPress={() => navigation.navigate("Home")}>
-                        <Text className="text-center text-white">Back Home</Text>
+                    <TouchableOpacity className="bg-purple-500 p-3 w-28 mx-auto mt-4" onPress={() => navigation.navigate("SearchScreen")}>
+                        <Text className="text-center text-white">Back to Search</Text>
                     </TouchableOpacity>
                 </View>
         
