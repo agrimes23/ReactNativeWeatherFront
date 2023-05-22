@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -29,13 +29,28 @@ const Dashboard = (props: Props) => {
     const [city, setCity] = useState("")
 
     const navigation = useNavigation<NavigationProp>()
-
+    const getDBWeather = async () => {
+        await fetch(`http://localhost:3000/api/v1/weather/`)
+            .then((res) => res.json())
+            .then(data => {
+                console.log("This is data:  " + data)
+                setCity(data)
+            })
+            .catch(error => {
+                console.log("Message: " + error);
+            });
+    }
 
     const handleSubmit = () => {
         // console.log(city)
-
         navigation.navigate("WeatherDetail", {cityName: city})
     }
+
+    useEffect = (() => {
+        getDBWeather();
+        console.log(city)
+        console.log("Hello")
+    })
 
     return (
         <ImageBackground className="w-screen h-full z-0" source={require('../assets/images/blueskybg.jpg')}>

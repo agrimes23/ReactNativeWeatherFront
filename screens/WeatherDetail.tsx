@@ -46,7 +46,7 @@ const WeatherDetail = (props: Props) => {
                 getTime(data.dt, data.timezone, data.sys.sunrise, data.sys.sunset)
             })
             .catch(error => {
-                console.log("MEssage: " + error);
+                console.log("Message: " + error);
             });        
     }
 
@@ -75,6 +75,7 @@ const WeatherDetail = (props: Props) => {
     useEffect(() => {
         getWeather()
         getDegrees()
+        console.log('hello')
               
     }, [isEnabled])
 
