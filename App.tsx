@@ -20,6 +20,7 @@ export type RootStackParamList = {
     sysData: Object
   };
   BottomTab: any;
+  GetEachCityWeather: any;
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

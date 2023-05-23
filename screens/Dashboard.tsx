@@ -3,8 +3,6 @@ import {
   SafeAreaView,
   Text,
   View,
-  TextInput,
-  Pressable,
   TouchableOpacity,
   ImageBackground,
   KeyboardAvoidingView,
@@ -14,6 +12,7 @@ import { NativeStackNavigationProp, createNativeStackNavigator } from '@react-na
 import { RootStackParamList } from '../App';
 import {useNavigation, useRoute, useIsFocused } from '@react-navigation/native'
 import axios from 'axios'
+import GetEachCityWeather from './GetEachCityWeather'
 
 type Props = {};
 
@@ -21,7 +20,7 @@ export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Sear
 
 const Dashboard = (props: Props) => {
 
-    const [getData, setGetData] = useState("")
+    const [getData, setGetData] = useState<Array<Object>>([])
     const isFocused = useIsFocused()
 
     const navigation = useNavigation<NavigationProp>()
@@ -38,7 +37,7 @@ const Dashboard = (props: Props) => {
     useEffect (() => {
         if (isFocused) {
             getDBWeather();
-            console.log(getData)
+//             console.log("hellooo " + getData[0].cityname)
         }
 
     }, [isFocused])
@@ -47,8 +46,18 @@ const Dashboard = (props: Props) => {
         <ImageBackground className="w-screen h-full z-0" source={require('../assets/images/blueskybg.jpg')}>
             <SafeAreaView className="bg-gray">
                 <ScrollView>
-                    <View className="m-auto mt-10">
-                        <Text className="text-2xl">Dashboard! (Coming Soon)</Text>
+                    <View className="mt-10">
+
+                        {getData.map((weather: Object, index: number) => {
+                        return(
+                            <View className="bg-white/60 p-5 rounded w-72 my-4 mx-auto" key={index}>
+                                <Text className="text-xl text-black" >{weather.cityname} </Text>
+
+                                <GetEachCityWeather cityName={weather.cityname}/>
+                            </View>
+                            )
+                        })}
+
                     </View>
                 </ScrollView>                
             </SafeAreaView>
