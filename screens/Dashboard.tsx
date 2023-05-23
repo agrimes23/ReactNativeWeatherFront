@@ -49,10 +49,13 @@ const Dashboard = (props: Props) => {
                     <View className="mt-10">
 
                         {getData.map((weather: Object, index: number) => {
-                        return(
-                            <View className="bg-white/60 p-5 rounded w-72 my-4 mx-auto" key={index}>
-                                <Text className="text-xl text-black" >{weather.cityname} </Text>
 
+
+                        return(
+                            <View className="bg-white/60 p-5 rounded flex-row w-72 my-4 mx-auto justify-around" key={index}>
+                                <View clasName="flex-col">
+                                    <Text className="text-2xl text-black pt-3" >{weather.cityname} </Text>
+                                </View>
                                 <GetEachCityWeather cityName={weather.cityname}/>
                             </View>
                             )

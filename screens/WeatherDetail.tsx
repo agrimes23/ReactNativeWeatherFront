@@ -75,8 +75,7 @@ const WeatherDetail = (props: Props) => {
     useEffect(() => {
         getWeather()
         getDegrees()
-        console.log('hello')
-              
+
     }, [isEnabled])
 
     return (
@@ -94,8 +93,8 @@ const WeatherDetail = (props: Props) => {
                                 onValueChange={(value:any) => setIsEnabled(value)}
                             />
                         </View>
-                    <View className="flex-row justify-evenly p-3 h-16">
-                        <Image className="w-16" source={{
+                    <View className="flex-row justify-evenly p-3">
+                        <Image className="w-16 h-16" source={{
                             uri: `http://openweathermap.org/img/wn/${icon}@2x.png`
                             }} 
                         />

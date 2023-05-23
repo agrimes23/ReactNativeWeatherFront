@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   Text,
   View,
+  Image,
   TouchableOpacity,
   ImageBackground,
   KeyboardAvoidingView,
@@ -20,32 +21,37 @@ const GetEachCityWeather = (props: Props) => {
     const isFocused = useIsFocused()
     const [weatherData, setWeatherData] = useState<any>([])
     const [icon, setIcon] = useState("")
+    const [maxTemp, setMaxTemp] = useState<Number>()
 
     const getWeather = async () => {
-            await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${props.cityName}&appid=${API_TOKEN}&units=$imperial`)
+            await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${props.cityName}&appid=${API_TOKEN}&units=imperial`)
                 .then((res) => res.json())
                 .then(data => {
-                    console.log(data)
                     setIcon(data.weather[0].icon)
+                    setMaxTemp(data.main.temp_max)
                 })
                 .catch(error => {
                     console.log("Message: " + error);
                 });
         }
 
-        useEffect =(() => {
-            if(isFocused) {
-                getWeather();
-            }
-            getWeather();
+    useEffect (() => {
 
-        }, [isFocused])
+        getWeather();
+
+    }, [])
 
 
     return (
-        <View>
-            <Text>{icon}</Text>
-            <Text>{weatherData.main ? weatherData.main.temp_max : null}</Text>
+        <View className="flex-col">
+
+            <Image
+                className="w-16 h-16"
+                source={{
+                    uri: `http://openweathermap.org/img/wn/${icon}@2x.png`
+                }}
+            />
+            <Text className="text-blue-500 text-xl">{maxTemp} F</Text>
         </View>
 
     )
