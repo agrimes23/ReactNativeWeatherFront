@@ -10,47 +10,38 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { NativeStackNavigationProp, createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import {useNavigation, useRoute} from '@react-navigation/native'
-
-const image = {sours: ''}
+import {useNavigation, useRoute, useIsFocused } from '@react-navigation/native'
+import axios from 'axios'
 
 type Props = {};
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Search">;
 
-
-
 const Dashboard = (props: Props) => {
 
-    const [city, setCity] = useState("")
+    const [getData, setGetData] = useState("")
+    const isFocused = useIsFocused()
 
     const navigation = useNavigation<NavigationProp>()
-    const getDBWeather = async () => {
-        await fetch(`http://localhost:3000/api/v1/weather/`)
-            .then((res) => res.json())
-            .then(data => {
-                console.log("This is data:  " + data)
-                setCity(data)
-            })
+
+    const getDBWeather = () => {
+
+         axios.get(`http://10.0.2.2:3000/api/v1/weather`)
+            .then(((res: any) => setGetData(res.data)), (err) => console.log("Woops " + err))
             .catch(error => {
                 console.log("Message: " + error);
             });
     }
 
-    const handleSubmit = () => {
-        // console.log(city)
-        navigation.navigate("WeatherDetail", {cityName: city})
-    }
+    useEffect (() => {
+        if (isFocused) {
+            getDBWeather();
+            console.log(getData)
+        }
 
-    useEffect = (() => {
-        getDBWeather();
-        console.log(city)
-        console.log("Hello")
-    })
+    }, [isFocused])
 
     return (
         <ImageBackground className="w-screen h-full z-0" source={require('../assets/images/blueskybg.jpg')}>
