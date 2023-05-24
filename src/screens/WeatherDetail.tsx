@@ -54,7 +54,6 @@ const WeatherDetail = (props: Props) => {
     }
 
     const addCityToDB = () => {
-            console.log("Name " + name)
              axios.post("http://10.0.2.2:3000/api/v1/weather", name)
              .then((res) => console.log(res.data));
         }
