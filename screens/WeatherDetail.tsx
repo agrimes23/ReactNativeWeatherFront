@@ -125,11 +125,11 @@ const WeatherDetail = (props: Props) => {
                     <View className="flex-row ">
                         <Text className="mr-2 text-base">Sunset Time:   {sunsetTime}</Text>
                     </View>
-                    <View className="flex-row justify-between">
-                        <TouchableOpacity className="bg-purple-500 p-3 mt-4 rounded" onPress={() => navigation.navigate("SearchScreen")}>
+                    <View className="flex-row justify-evenly">
+                        <TouchableOpacity className="bg-purple-500 p-3 w-28 mr-1 mt-4 rounded" onPress={() => navigation.navigate("SearchScreen")}>
                             <Text className="text-center text-white">Back to Search</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity className="bg-blue-300 p-3 mt-4 rounded" onPress={addCityToDB}>
+                        <TouchableOpacity className=" bg-blue-300 p-3 ml-1 mt-4 w-28 rounded" onPress={addCityToDB}>
                             <Text className="text-center text-white">Add to Dashboard</Text>
                         </TouchableOpacity>
                     </View>
