@@ -52,7 +52,7 @@ const GetEachCityWeather = (props: Props) => {
                     uri: `http://openweathermap.org/img/wn/${icon}@2x.png`
                 }}
             />
-            <Text className="text-xl">{maxTemp} F</Text>
+            <Text className="text-xl">{maxTemp} °F</Text>
         </View>
 
     )

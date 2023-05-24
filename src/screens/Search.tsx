@@ -35,7 +35,7 @@ const Search = (props: Props) => {
     }
 
     return (
-        <ImageBackground className="w-screen h-full z-0" source={require('../assets/images/blueskybg.jpg')}>
+        <ImageBackground className="w-screen h-full z-0" source={require('../../assets/images/blueskybg.jpg')}>
             <SafeAreaView className="bg-gray">
                 <ScrollView>
                     <KeyboardAvoidingView behavior="padding" className="flex-1">

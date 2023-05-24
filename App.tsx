@@ -4,20 +4,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-
-
-import Search from './screens/Search'
-import WeatherDetail from './screens/WeatherDetail'
-import Dashboard from './screens/Dashboard'
-import BottomTab from './screens/BottomTab'
+import Search from './src/screens/Search'
+import WeatherDetail from './src/screens/WeatherDetail'
+import Dashboard from './src/screens/Dashboard'
+import BottomTab from './src/screens/BottomTab'
 
 export type RootStackParamList = {
   Search: undefined;
   WeatherDetail: { cityName: string };
   Dashboard: undefined;
   TimeCalc: {
-    timezoneData: Number,
-    sysData: Object
+      setSunriseTime: string,
+      setSunsetTime: string,
+      sunriseTime: string,
+      sunsetTime: string,
   };
   BottomTab: any;
   GetEachCityWeather: any;
