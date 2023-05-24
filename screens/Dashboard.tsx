@@ -37,9 +37,8 @@ const Dashboard = (props: Props) => {
     useEffect (() => {
         if (isFocused) {
             getDBWeather();
-//             console.log("hellooo " + getData[0].cityname)
         }
-
+        console.log(getData)
     }, [isFocused])
 
     return (

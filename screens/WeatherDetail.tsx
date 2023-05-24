@@ -14,6 +14,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {API_TOKEN} from "react-native-dotenv"
+import axios from 'axios'
 
 type Props = {
 
@@ -32,6 +33,7 @@ const WeatherDetail = (props: Props) => {
     const [sunsetTime, setSunsetTime] = useState("")
     const [icon, setIcon] = useState("")
     const [apiUnit, setApiUnit] =useState("imperial")
+    const [name, setName] = useState({cityName: ''})
 
     const [isEnabled, setIsEnabled] = useState(false)
     const [degrees, setDegrees] = useState("Farenheit")
@@ -49,6 +51,12 @@ const WeatherDetail = (props: Props) => {
                 console.log("Message: " + error);
             });        
     }
+
+    const addCityToDB = () => {
+
+             axios.post("http://10.0.2.2:3000/api/v1/weather", name)
+             .then((res) => console.log(res.data));
+        }
 
     const getDegrees = async () => {
         if (isEnabled) {
@@ -75,7 +83,7 @@ const WeatherDetail = (props: Props) => {
     useEffect(() => {
         getWeather()
         getDegrees()
-
+        setName({...name, cityName: weatherData.name})
     }, [isEnabled])
 
     return (
@@ -117,10 +125,14 @@ const WeatherDetail = (props: Props) => {
                     <View className="flex-row ">
                         <Text className="mr-2 text-base">Sunset Time:   {sunsetTime}</Text>
                     </View>
-
-                    <TouchableOpacity className="bg-purple-500 p-3 w-28 mx-auto mt-4" onPress={() => navigation.navigate("SearchScreen")}>
-                        <Text className="text-center text-white">Back to Search</Text>
-                    </TouchableOpacity>
+                    <View className="flex-row justify-between">
+                        <TouchableOpacity className="bg-purple-500 p-3 mt-4 rounded" onPress={() => navigation.navigate("SearchScreen")}>
+                            <Text className="text-center text-white">Back to Search</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity className="bg-blue-300 p-3 mt-4 rounded" onPress={addCityToDB}>
+                            <Text className="text-center text-white">Add to Dashboard</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
         
             </ImageBackground>

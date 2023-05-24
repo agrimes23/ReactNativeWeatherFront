@@ -36,10 +36,11 @@ const GetEachCityWeather = (props: Props) => {
         }
 
     useEffect (() => {
-
-        getWeather();
-
-    }, [])
+        if(isFocused) {
+            getWeather();
+            console.log("Click")
+        }
+    }, [isFocused])
 
 
     return (
