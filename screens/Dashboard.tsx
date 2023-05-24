@@ -34,14 +34,15 @@ const Dashboard = (props: Props) => {
             });
     }
 
-    const handleDelete = () => {
-
-        axios.delete("http://10.0.2.2:3000/api/v1/weather")
+    const handleDelete = (id) => {
+        console.log("Id  " + id)
+        axios.delete("http://10.0.2.2:3000/api/v1/weather/" + id)
     }
 
     useEffect (() => {
         if (isFocused) {
             getDBWeather();
+            console.log("hey")
         }
 
     }, [isFocused])
@@ -59,7 +60,7 @@ const Dashboard = (props: Props) => {
                             <View className="bg-white/60 p-5 rounded flex-row w-72 my-4 mx-auto justify-around" key={index}>
                                 <View clasName="flex-col">
                                     <Text className="text-2xl text-black pt-3" >{weather.cityname} </Text>
-                                    <TouchableOpacity className="w-14 p-2 mt-4 bg-red-400/80 rounded" onPress={handleDelete}>
+                                    <TouchableOpacity className="w-14 p-2 mt-4 bg-red-400/80 rounded" onPress={() => handleDelete(weather.id)}>
                                         <Text className="text-center">Delete</Text>
                                     </TouchableOpacity>
                                 </View>

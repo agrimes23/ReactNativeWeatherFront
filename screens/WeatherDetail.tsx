@@ -46,6 +46,7 @@ const WeatherDetail = (props: Props) => {
                 setWeatherData(data)
                 setIcon(data.weather[0].icon)
                 getTime(data.dt, data.timezone, data.sys.sunrise, data.sys.sunset)
+                setName({...name, cityName: data.name})
             })
             .catch(error => {
                 console.log("Message: " + error);
@@ -53,7 +54,7 @@ const WeatherDetail = (props: Props) => {
     }
 
     const addCityToDB = () => {
-
+            console.log("Name " + name)
              axios.post("http://10.0.2.2:3000/api/v1/weather", name)
              .then((res) => console.log(res.data));
         }
@@ -83,7 +84,7 @@ const WeatherDetail = (props: Props) => {
     useEffect(() => {
         getWeather()
         getDegrees()
-        setName({...name, cityName: weatherData.name})
+
     }, [isEnabled])
 
     return (
