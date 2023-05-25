@@ -15,6 +15,7 @@ import { RootStackParamList } from '../App';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {API_TOKEN} from "react-native-dotenv"
 import axios from 'axios'
+import TimeCalc from '../components/TimeCalc'
 
 type Props = {
 
@@ -29,15 +30,17 @@ const WeatherDetail = (props: Props) => {
 
     const [weatherData, setWeatherData] = useState<any>([])
     const [localTime, setLocalTime] = useState<string>("")
-    const [sunriseTime, setSunriseTime] = useState("")
-    const [sunsetTime, setSunsetTime] = useState("")
+    const [sunriseData, setSunriseData] = useState<number>()
+    const [sunsetData, setSunsetData] = useState<number>()
+    const [timezoneData, setTimezoneData] = useState<number>()
     const [icon, setIcon] = useState("")
-    const [apiUnit, setApiUnit] =useState("imperial")
+
     const [name, setName] = useState({cityName: ''})
 
     const [isEnabled, setIsEnabled] = useState(false)
     const [degrees, setDegrees] = useState("Farenheit")
     const [tempUnit, setTempUnit] = useState("°F")
+    const [apiUnit, setApiUnit] =useState("imperial")
 
     const getWeather = async () => {
         await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_TOKEN}&units=${apiUnit}`)
@@ -45,7 +48,10 @@ const WeatherDetail = (props: Props) => {
             .then(data => {
                 setWeatherData(data)
                 setIcon(data.weather[0].icon)
-                getTime(data.dt, data.timezone, data.sys.sunrise, data.sys.sunset)
+                setSunriseData(data.sys.sunrise)
+                setSunsetData(data.sys.sunset)
+                setTimezoneData(data.timezone)
+//                 getTime(data.dt, data.timezone, data.sys.sunrise, data.sys.sunset)
                 setName({...name, cityName: data.name})
             })
             .catch(error => {
@@ -119,12 +125,11 @@ const WeatherDetail = (props: Props) => {
                         </Text>
                     </View>
 
-                    <View className="flex-row ">
-                        <Text className="mr-2 text-base">Sunrise Time:   {sunriseTime}</Text>
-                    </View>
-                    <View className="flex-row ">
-                        <Text className="mr-2 text-base">Sunset Time:   {sunsetTime}</Text>
-                    </View>
+                    <TimeCalc sunriseTime={sunriseData}
+                              sunsetTime={sunsetData}
+                              timezoneData={timezoneData} />
+
+
                     <View className="flex-row justify-evenly">
                         <TouchableOpacity className="bg-purple-500 p-3 w-28 mr-1 mt-4 rounded" onPress={() => navigation.navigate("SearchScreen")}>
                             <Text className="text-center text-white">Back to Search</Text>

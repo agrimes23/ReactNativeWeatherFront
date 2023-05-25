@@ -17,7 +17,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {useNavigation, useRoute} from '@react-navigation/native'
 
 
-type Props = {};
+type Props = {
+    city: string;
+    setCity: string;
+};
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Search">;
 

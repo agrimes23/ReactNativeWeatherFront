@@ -7,23 +7,24 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from 'react-native';
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 
 type Props = {
-    setSunriseTime: string;
-    setSunsetTime: string;
-    sunriseTime: string;
-    sunsetTime: string;
-    weatherData: any;
+    sunriseData: number;
+    sunsetData: number;
+    timezoneData: number;
 };
 
 
-const TimeCalc = ({setSunriseTime, setSunsetTime, sunriseTime, sunsetTime, weatherData}: Props) => {
+const TimeCalc = ({sunriseData, sunsetData, timezoneData}: Props) => {
+
+    const [sunriseTime, setSunriseTime] = useState<String>()
+    const [sunsetTime, setSunsetTime] = useState<string>()
 
     const getTime = () => {
-        const localDate = new Date( time * 1000  + ((zoneData) *1000)).toUTCString().split("GMT")
-        const localSunrise = new Date(( (sunriseData) * 1000  + ((zoneData) * 1000 )) ).toUTCString()
-        const localSunset = new Date( (sunsetData) * 1000  + ((zoneData) *1000)).toUTCString()
+//         const localDate = new Date( time * 1000  + ((zoneData) *1000)).toUTCString().split("GMT")
+        const localSunrise = new Date(( (sunriseData) * 1000  + ((timezoneData) * 1000 )) ).toUTCString()
+        const localSunset = new Date( (sunsetData) * 1000  + ((timezoneData) *1000)).toUTCString()
 
 //         setLocalTime(localDate[0])
         setSunriseTime(`${localSunrise.split(" ")[4]} ${ + localSunrise.split(" ")[4].split(":")[0] > 12 ? "PM" : "AM" }`)
@@ -31,8 +32,8 @@ const TimeCalc = ({setSunriseTime, setSunsetTime, sunriseTime, sunsetTime, weath
     }
 
     useEffect (() => {
-        console.log("heyyy " + weatherData)
-        getTime(weatherData.timezone, weatherData.sys.sunrise, weatherData.sys.sunset)
+
+        getTime()
 
     }, [])
 
