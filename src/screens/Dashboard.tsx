@@ -12,7 +12,7 @@ import { NativeStackNavigationProp, createNativeStackNavigator } from '@react-na
 import { RootStackParamList } from '../App';
 import {useNavigation, useRoute, useIsFocused } from '@react-navigation/native'
 import axios from 'axios'
-import GetEachCityWeather from './GetEachCityWeather'
+import GetEachCityWeather from '../components/GetEachCityWeather'
 
 type Props = {};
 
@@ -48,7 +48,7 @@ const Dashboard = (props: Props) => {
     }, [isFocused])
 
     return (
-        <ImageBackground className="w-screen h-full z-0" source={require('../assets/images/blueskybg.jpg')}>
+        <ImageBackground className="w-screen h-full z-0" source={require('../../assets/images/blueskybg.jpg')}>
             <SafeAreaView className="bg-gray">
                 <ScrollView>
                     <View className="mt-10">
