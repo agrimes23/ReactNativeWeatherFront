@@ -21,25 +21,25 @@ const Tab = createBottomTabNavigator();
 
 const SearchNav = () => {
 
-    const [weatherSearch, setWeatherSearch] = useState<any>()
-    const [city, setCity] = useState<string>("")
-
-     const getWeatherTwo = async () => {
-        await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_TOKEN}&units=${apiUnit}`)
-            .then((res) => res.json())
-            .then(data => {
-                setWeatherData(data)
-                setIcon(data.weather[0].icon)
-                setSunriseData(data.sys.sunrise)
-                setSunsetData(data.sys.sunset)
-                setTimezoneData(data.timezone)
-//                 getTime(data.dt, data.timezone, data.sys.sunrise, data.sys.sunset)
-                setName({...name, cityName: data.name})
-            })
-            .catch(error => {
-                console.log("Message: " + error);
-            });
-    }
+//     const [weatherSearch, setWeatherSearch] = useState<any>()
+//     const [city, setCity] = useState<string>("")
+//
+//      const getWeatherTwo = async () => {
+//         await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_TOKEN}&units=${apiUnit}`)
+//             .then((res) => res.json())
+//             .then(data => {
+//                 setWeatherData(data)
+//                 setIcon(data.weather[0].icon)
+//                 setSunriseData(data.sys.sunrise)
+//                 setSunsetData(data.sys.sunset)
+//                 setTimezoneData(data.timezone)
+// //                 getTime(data.dt, data.timezone, data.sys.sunrise, data.sys.sunset)
+//                 setName({...name, cityName: data.name})
+//             })
+//             .catch(error => {
+//                 console.log("Message: " + error);
+//             });
+//     }
 
     useEffect (() => {
 
@@ -52,18 +52,13 @@ const SearchNav = () => {
                 name="SearchScreen"
                 component={Search}
                 options={{headerShown: false}}
-                initialParams={{
-                    city: city,
-                    setCity: setCity
-                }}
+
             />
             <Stack.Screen
                 name="WeatherDetail"
                 component={WeatherDetail}
                 options={{headerShown: false}}
-                initialParams={{weatherSearch: weatherSearch,
-                    getWeatherTwo: getWeatherTwo
-                }}
+
             />
         </Stack.Navigator>
     )

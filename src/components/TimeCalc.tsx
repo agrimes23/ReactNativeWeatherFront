@@ -49,5 +49,3 @@ const TimeCalc = ({sunriseData, sunsetData, timezoneData}: Props) => {
         </View>
     )
 }
-
-export default TimeCalc;
