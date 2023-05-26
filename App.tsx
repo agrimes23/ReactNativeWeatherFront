@@ -23,6 +23,18 @@ export type RootStackParamList = {
   GetEachCityWeather: any;
 }
 
+export type WeatherDataType = {
+    name: string;
+    sys: {
+        sunrise: number;
+        sunset: number;
+    };
+    main: {
+        temp_max: number;
+    };
+
+}
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): JSX.Element {

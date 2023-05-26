@@ -5,7 +5,6 @@ import axios from 'axios'
 
 export default class ApiService {
 
-
     static getWeather = async (cityName: string, apiUnit: string) => {
 
         return await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}

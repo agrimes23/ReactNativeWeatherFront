@@ -86,7 +86,7 @@ const WeatherDetail = (props: Props) => {
     useEffect(() => {
         getWeather()
         getDegrees()
-
+        console.log(JSON.stringify(weatherData))
     }, [isEnabled])
 
     return (
