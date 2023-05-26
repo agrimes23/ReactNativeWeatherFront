@@ -10,12 +10,14 @@ import {
   ImageBackground,
   Switch
 } from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {API_TOKEN} from "react-native-dotenv"
 import axios from 'axios'
 import TimeCalc from '../components/TimeCalc'
+import ApiService from '../data/ApiService'
+
 
 type Props = {
 
@@ -42,8 +44,9 @@ const WeatherDetail = (props: Props) => {
     const [tempUnit, setTempUnit] = useState("°F")
     const [apiUnit, setApiUnit] =useState("imperial")
 
+
     const getWeather = async () => {
-        await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_TOKEN}&units=${apiUnit}`)
+        ApiService.getWeather(cityName, apiUnit)
             .then((res) => res.json())
             .then(data => {
                 setWeatherData(data)
@@ -51,14 +54,11 @@ const WeatherDetail = (props: Props) => {
                 getTime(data.dt, data.timezone, data.sys.sunrise, data.sys.sunset)
                 setName({...name, cityName: data.name})
             })
-            .catch(error => {
-                console.log("Message: " + error);
-            });
     }
 
     const addCityToDB = () => {
-             axios.post("http://10.0.2.2:3000/api/v1/weather", name)
-             .then((res) => console.log(res.data));
+             ApiService.handleAddCity(name)
+                .then((res) => console.log(res.data));
         }
 
     const getDegrees = async () => {
@@ -87,6 +87,7 @@ const WeatherDetail = (props: Props) => {
         getWeather()
         getDegrees()
 
+
     }, [isEnabled])
 
     return (
@@ -94,7 +95,7 @@ const WeatherDetail = (props: Props) => {
             <ImageBackground className="w-screen h-screen z-0" source={require('../../assets/images/clear-night.jpg')}>
 
                 <View className="mx-auto my-6 p-10 bg-white/40 rounded">
-                    <Text className="text-4xl text-left">{weatherData.name ? weatherData.name : null}</Text>
+                    <Text className="text-4xl text-left">{weatherData.name}</Text>
                     <Text className="text-left text-lg">{localTime}</Text>
                     <View className="flex-row justify-evenly items-center ">
                             <Text className="text-base">{degrees}</Text>

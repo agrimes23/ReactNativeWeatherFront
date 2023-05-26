@@ -42,7 +42,7 @@ const Dashboard = (props: Props) => {
     useEffect (() => {
         if (isFocused) {
             getDBWeather();
-            console.log("hey")
+
         }
 
     }, [isFocused])
