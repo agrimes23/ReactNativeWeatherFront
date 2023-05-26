@@ -15,7 +15,7 @@ import { RootStackParamList } from '../App';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {API_TOKEN} from "react-native-dotenv"
 import axios from 'axios'
-import TimeCalc from '../components/TimeCalc'
+// import RiseSetTime from '../components/RiseSetTime'
 import ApiService from '../data/ApiService'
 
 
@@ -86,7 +86,6 @@ const WeatherDetail = (props: Props) => {
     useEffect(() => {
         getWeather()
         getDegrees()
-
 
     }, [isEnabled])
 
