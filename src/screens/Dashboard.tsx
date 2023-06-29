@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { NativeStackNavigationProp, createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import {useNavigation, useRoute, useIsFocused } from '@react-navigation/native'
 import axios from 'axios'
 import GetEachCityWeather from '../components/GetEachCityWeather'
@@ -34,18 +34,21 @@ const Dashboard = (props: Props) => {
             });
     }
 
-    const handleDelete = (id) => {
+    const handleDelete = (id: number) => {
         console.log("Id  " + id)
         axios.delete("http://10.0.2.2:3000/api/v1/weather/" + id)
     }
 
     useEffect (() => {
+        
         if (isFocused) {
             getDBWeather();
 
         }
 
     }, [isFocused])
+
+    
 
     return (
         <ImageBackground className="w-screen h-full z-0" source={require('../../assets/images/blueskybg.jpg')}>
@@ -55,16 +58,16 @@ const Dashboard = (props: Props) => {
 
                         {getData.map((weather: Object, index: number) => {
 
-
+                            console.log(weather)
                         return(
                             <View className="bg-white/60 p-5 rounded flex-row w-72 my-4 mx-auto justify-around" key={index}>
-                                <View clasName="flex-col">
+                                {/* <View className="flex-col">
                                     <Text className="text-2xl text-black pt-3" >{weather.cityname} </Text>
                                     <TouchableOpacity className="w-14 p-2 mt-4 bg-red-400/80 rounded" onPress={() => handleDelete(weather.id)}>
                                         <Text className="text-center">Delete</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <GetEachCityWeather cityName={weather.cityname}/>
+                                <GetEachCityWeather cityName={weather.cityname}/> */}
                             </View>
                             )
                         })}

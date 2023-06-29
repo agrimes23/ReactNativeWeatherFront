@@ -30,7 +30,7 @@ const WeatherDetail = (props: Props) => {
     const route: any = useRoute()
     const cityName = route.params?.cityName
 
-    const [weatherData, setWeatherData] = useState<any>([])
+    const [weatherData, setWeatherData] = useState<WeatherDataType | null >(null)
     const [localTime, setLocalTime] = useState<string>("")
     const [sunriseTime, setSunriseTime] = useState("")
     const [sunsetTime, setSunsetTime] = useState("")

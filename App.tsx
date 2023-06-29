@@ -32,7 +32,6 @@ export type WeatherDataType = {
     main: {
         temp_max: number;
     };
-
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
