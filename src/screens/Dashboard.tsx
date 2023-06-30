@@ -5,44 +5,48 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  KeyboardAvoidingView,
   ScrollView,
 } from 'react-native';
 import { NativeStackNavigationProp, createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import {useNavigation, useRoute, useIsFocused } from '@react-navigation/native'
 import axios from 'axios'
 import GetEachCityWeather from '../components/GetEachCityWeather'
+import apiData from '../data/ApiService'
 
 type Props = {};
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Search">;
 
+export type DashboardData = {
+    id: number;
+    cityname: string;
+}
+
 const Dashboard = (props: Props) => {
 
-    const [getData, setGetData] = useState<Array<Object>>([])
+    const [getData, setGetData] = useState<Array<DashboardData>>([])
     const isFocused = useIsFocused()
 
     const navigation = useNavigation<NavigationProp>()
 
-    const getDBWeather = () => {
+    const callDBWeather = () => {
 
-         axios.get(`http://10.0.2.2:3000/api/v1/weather`)
+        apiData.getDBWeather()
             .then(((res: any) => setGetData(res.data)), (err) => console.log("Woops " + err))
             .catch(error => {
                 console.log("Message: " + error);
             });
     }
 
-    const handleDelete = (id) => {
-        console.log("Id  " + id)
-        axios.delete("http://10.0.2.2:3000/api/v1/weather/" + id)
+    const onDelete = (id: number) => {
+        apiData.handleDelete(id)
+        callDBWeather();
     }
 
     useEffect (() => {
         if (isFocused) {
-            getDBWeather();
-            console.log("hey")
+            callDBWeather();
         }
 
     }, [isFocused])
@@ -53,20 +57,19 @@ const Dashboard = (props: Props) => {
                 <ScrollView>
                     <View className="mt-10">
 
-                        {getData.map((weather: Object, index: number) => {
+                        {getData.map((weather: DashboardData, index: number) => {
 
-
-                        return(
-                            <View className="bg-white/60 p-5 rounded flex-row w-72 my-4 mx-auto justify-around" key={index}>
-                                <View clasName="flex-col">
-                                    <Text className="text-2xl text-black pt-3" >{weather.cityname} </Text>
-                                    <TouchableOpacity className="w-14 p-2 mt-4 bg-red-400/80 rounded" onPress={() => handleDelete(weather.id)}>
-                                        <Text className="text-center">Delete</Text>
-                                    </TouchableOpacity>
+                            return(
+                                <View className="bg-white/60 p-5 rounded flex-row w-72 my-4 mx-auto justify-around" key={index}>
+                                    <View className="flex-col">
+                                        <Text className="text-2xl text-black pt-3" >{weather.cityname} </Text>
+                                        <TouchableOpacity className="w-14 p-2 mt-4 bg-red-400/80 rounded" onPress={() => onDelete(weather.id)}>
+                                            <Text className="text-center">Delete</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <GetEachCityWeather cityName={weather.cityname}/>
                                 </View>
-                                <GetEachCityWeather cityName={weather.cityname}/>
-                            </View>
-                            )
+                                )
                         })}
 
                     </View>

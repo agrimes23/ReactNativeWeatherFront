@@ -10,21 +10,19 @@ import {
 import {useEffect, useState} from 'react'
 
 type Props = {
-    sunriseData: number;
-    sunsetData: number;
-    timezoneData: number;
+    weatherData: any;
 };
 
 
-const TimeCalc = ({sunriseData, sunsetData, timezoneData}: Props) => {
+const RiseSetTime = ({weatherData}: Props) => {
 
-    const [sunriseTime, setSunriseTime] = useState<String>()
+    const [sunriseTime, setSunriseTime] = useState<string>()
     const [sunsetTime, setSunsetTime] = useState<string>()
 
     const getTime = () => {
 //         const localDate = new Date( time * 1000  + ((zoneData) *1000)).toUTCString().split("GMT")
-        const localSunrise = new Date(( (sunriseData) * 1000  + ((timezoneData) * 1000 )) ).toUTCString()
-        const localSunset = new Date( (sunsetData) * 1000  + ((timezoneData) *1000)).toUTCString()
+        const localSunrise = new Date(( (weatherData.sys.sunrise) * 1000  + ((weatherData.timezone) * 1000 )) ).toUTCString()
+        const localSunset = new Date( (weatherData.sys.sunset) * 1000  + ((weatherData.timezone) *1000)).toUTCString()
 
 //         setLocalTime(localDate[0])
         setSunriseTime(`${localSunrise.split(" ")[4]} ${ + localSunrise.split(" ")[4].split(":")[0] > 12 ? "PM" : "AM" }`)
@@ -33,7 +31,8 @@ const TimeCalc = ({sunriseData, sunsetData, timezoneData}: Props) => {
 
     useEffect (() => {
 
-        getTime()
+//         getTime()
+        console.log("Wooo getting t his from componenttt " + JSON.stringify(weatherData.name))
 
     }, [])
 
@@ -49,3 +48,4 @@ const TimeCalc = ({sunriseData, sunsetData, timezoneData}: Props) => {
         </View>
     )
 }
+

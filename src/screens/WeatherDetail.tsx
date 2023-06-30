@@ -11,11 +11,12 @@ import {
   Switch
 } from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {API_TOKEN} from "react-native-dotenv"
 import axios from 'axios'
-import TimeCalc from '../components/TimeCalc'
+// import TimeCalc from '../components/TimeCalc'
+import ApiService from '../data/ApiService';
 
 type Props = {
 
@@ -42,8 +43,9 @@ const WeatherDetail = (props: Props) => {
     const [tempUnit, setTempUnit] = useState("°F")
     const [apiUnit, setApiUnit] =useState("imperial")
 
-    const getWeather = async () => {
-        await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_TOKEN}&units=${apiUnit}`)
+    const callWeatherApi = async () => {
+
+        ApiService.getWeather(cityName, apiUnit)
             .then((res) => res.json())
             .then(data => {
                 setWeatherData(data)
@@ -54,7 +56,10 @@ const WeatherDetail = (props: Props) => {
             .catch(error => {
                 console.log("Message: " + error);
             });
-    }
+        };
+
+
+    
 
     const addCityToDB = () => {
              axios.post("http://10.0.2.2:3000/api/v1/weather", name)
@@ -84,10 +89,12 @@ const WeatherDetail = (props: Props) => {
     }
 
     useEffect(() => {
-        getWeather()
+        callWeatherApi()
         getDegrees()
 
     }, [isEnabled])
+
+
 
     return (
         <SafeAreaView className="">

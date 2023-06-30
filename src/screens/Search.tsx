@@ -11,7 +11,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {useNavigation, useRoute} from '@react-navigation/native'
