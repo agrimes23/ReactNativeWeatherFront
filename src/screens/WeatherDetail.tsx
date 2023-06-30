@@ -10,14 +10,13 @@ import {
   ImageBackground,
   Switch
 } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../App';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {API_TOKEN} from "react-native-dotenv"
 import axios from 'axios'
-// import RiseSetTime from '../components/RiseSetTime'
-import ApiService from '../data/ApiService'
-
+// import TimeCalc from '../components/TimeCalc'
+import ApiService from '../data/ApiService';
 
 type Props = {
 
@@ -30,7 +29,7 @@ const WeatherDetail = (props: Props) => {
     const route: any = useRoute()
     const cityName = route.params?.cityName
 
-    const [weatherData, setWeatherData] = useState<WeatherDataType | null >(null)
+    const [weatherData, setWeatherData] = useState<any>([])
     const [localTime, setLocalTime] = useState<string>("")
     const [sunriseTime, setSunriseTime] = useState("")
     const [sunsetTime, setSunsetTime] = useState("")
@@ -44,8 +43,8 @@ const WeatherDetail = (props: Props) => {
     const [tempUnit, setTempUnit] = useState("°F")
     const [apiUnit, setApiUnit] =useState("imperial")
 
+    const callWeatherApi = async () => {
 
-    const getWeather = async () => {
         ApiService.getWeather(cityName, apiUnit)
             .then((res) => res.json())
             .then(data => {
@@ -54,11 +53,17 @@ const WeatherDetail = (props: Props) => {
                 getTime(data.dt, data.timezone, data.sys.sunrise, data.sys.sunset)
                 setName({...name, cityName: data.name})
             })
-    }
+            .catch(error => {
+                console.log("Message: " + error);
+            });
+        };
+
+
+    
 
     const addCityToDB = () => {
-             ApiService.handleAddCity(name)
-                .then((res) => console.log(res.data));
+             axios.post("http://10.0.2.2:3000/api/v1/weather", name)
+             .then((res) => console.log(res.data));
         }
 
     const getDegrees = async () => {
@@ -84,17 +89,19 @@ const WeatherDetail = (props: Props) => {
     }
 
     useEffect(() => {
-        getWeather()
+        callWeatherApi()
         getDegrees()
-        console.log(JSON.stringify(weatherData))
+
     }, [isEnabled])
+
+
 
     return (
         <SafeAreaView className="">
             <ImageBackground className="w-screen h-screen z-0" source={require('../../assets/images/clear-night.jpg')}>
 
                 <View className="mx-auto my-6 p-10 bg-white/40 rounded">
-                    <Text className="text-4xl text-left">{weatherData.name}</Text>
+                    <Text className="text-4xl text-left">{weatherData.name ? weatherData.name : null}</Text>
                     <Text className="text-left text-lg">{localTime}</Text>
                     <View className="flex-row justify-evenly items-center ">
                             <Text className="text-base">{degrees}</Text>

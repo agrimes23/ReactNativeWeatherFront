@@ -11,11 +11,21 @@ export default class ApiService {
         &appid=${API_TOKEN}&units=${apiUnit}`)
     }
 
+    static getDBWeather = () => {
+
+        axios.get(`http://10.0.2.2:3000/api/v1/weather`)
+           
+   }
+
     static handleAddCity = (name: string) => {
 
         return axios.post("http://10.0.2.2:3000/api/v1/weather", name)
 
     }
 
+
+    static handleDelete = (id: number) => {
+        return axios.delete("http://10.0.2.2:3000/api/v1/weather/" + id)
+    }
 
 }

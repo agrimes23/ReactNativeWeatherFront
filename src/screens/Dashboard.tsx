@@ -5,7 +5,6 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  KeyboardAvoidingView,
   ScrollView,
 } from 'react-native';
 import { NativeStackNavigationProp, createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,14 +12,20 @@ import { RootStackParamList } from '../../App';
 import {useNavigation, useRoute, useIsFocused } from '@react-navigation/native'
 import axios from 'axios'
 import GetEachCityWeather from '../components/GetEachCityWeather'
+import apiData from '../data/ApiService'
 
 type Props = {};
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Search">;
 
+export type DashboardData = {
+    id: number;
+    cityname: string;
+}
+
 const Dashboard = (props: Props) => {
 
-    const [getData, setGetData] = useState<Array<Object>>([])
+    const [getData, setGetData] = useState<Array<DashboardData>>([])
     const isFocused = useIsFocused()
 
     const navigation = useNavigation<NavigationProp>()
@@ -34,21 +39,17 @@ const Dashboard = (props: Props) => {
             });
     }
 
-    const handleDelete = (id: number) => {
-        console.log("Id  " + id)
-        axios.delete("http://10.0.2.2:3000/api/v1/weather/" + id)
+    const onDelete = (id: number) => {
+        apiData.handleDelete(id)
     }
 
     useEffect (() => {
-        
         if (isFocused) {
             getDBWeather();
-
+            console.log("hey")
         }
 
     }, [isFocused])
-
-    
 
     return (
         <ImageBackground className="w-screen h-full z-0" source={require('../../assets/images/blueskybg.jpg')}>
@@ -56,18 +57,18 @@ const Dashboard = (props: Props) => {
                 <ScrollView>
                     <View className="mt-10">
 
-                        {getData.map((weather: Object, index: number) => {
+                        {getData.map((weather: DashboardData, index: number) => {
 
                             console.log(weather)
                         return(
                             <View className="bg-white/60 p-5 rounded flex-row w-72 my-4 mx-auto justify-around" key={index}>
-                                {/* <View className="flex-col">
+                                <View className="flex-col">
                                     <Text className="text-2xl text-black pt-3" >{weather.cityname} </Text>
-                                    <TouchableOpacity className="w-14 p-2 mt-4 bg-red-400/80 rounded" onPress={() => handleDelete(weather.id)}>
+                                    <TouchableOpacity className="w-14 p-2 mt-4 bg-red-400/80 rounded" onPress={() => onDelete(weather.id)}>
                                         <Text className="text-center">Delete</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <GetEachCityWeather cityName={weather.cityname}/> */}
+                                <GetEachCityWeather cityName={weather.cityname}/>
                             </View>
                             )
                         })}
