@@ -10,7 +10,7 @@ import Dashboard from './src/screens/Dashboard'
 import BottomTab from './src/screens/BottomTab'
 
 export type RootStackParamList = {
-  Search: undefined;
+  Search: { city: string, setCity: (city: string) => void };
   WeatherDetail: { cityName: string };
   Dashboard: undefined;
   TimeCalc: {
